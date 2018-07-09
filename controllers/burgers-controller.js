@@ -7,8 +7,8 @@ router.get('/', function (req, res) {
 });
 
 router.get('/burgers', function (req, res) {
-    burgers_db.all(function (data) {
-        var hbsObject = { burgers_db: data };
+    burger.all(function (data) {
+        var hbsObject = { burgers: data };
         console.log(hbsObject);
         res.render('index', hbsObject);
     });
@@ -29,5 +29,12 @@ router.put('/burgers/update/:id', function (req, res) {
         res.redirect('/burgers');
     });
 });
+
+router.delete('/burgers/delete/:id', function(req, res){
+    var condition = "id = " + req.params.id;
+    burger.delete(condition, function(){
+        res.redirect('/');
+    })
+})
 
 module.exports = router;
